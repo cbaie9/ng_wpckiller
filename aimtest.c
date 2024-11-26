@@ -39,6 +39,7 @@ boolean NoLimit = false;
 boolean Buffer_already_click = false;
 int difficulty_num = 1;
 String difficulty_name = "Normal" ;
+String color_name = "winblue";
 int time = 1;
 int timestart = 1 ;
 int hour_ter = 0;
@@ -46,6 +47,11 @@ int minutes_ter = 0;
 int sec_ter = 0;
 boolean reboost = false;
 boolean end_cursor = true;
+color color_back = winblue;
+int color_num = 0;
+color goon_green = color(105,205,100);
+color hi7 = color(105,105,200);
+color vlo = color(148,100,205);
 void setup(){
   if (reboost == false){
   size(1920,720); // For More responsive put the x and y value into SizeX / SizeY   /// tested on x: 1920, 720  
@@ -59,7 +65,7 @@ void setup(){
 }
 
 void draw(){
- background(winblue);
+ background(color_back);
  noStroke();
  fill(lightgray);
  rect(0,SizeY-25,SizeX,25);
@@ -168,6 +174,7 @@ void draw(){
    rect(SizeX*0.40,75,35,35);
    fill(white);
    rect(SizeX*0.40,145,300,35); // difficulty 
+   rect(SizeX*0.40,245,300,35); // difficulty 
    text("No Score Limit",SizeX*0.43,105);
    if (((mouseX > (((SizeX*0.35)+520))) && (mouseX < (SizeX*0.35)+550)) && ((mouseY > 30) && (mouseY< 60))) {
      stroke(white);
@@ -276,6 +283,32 @@ if ( difficulty_num ==5) {
       ButtonHeight= 10;
       TextButton= "";
 }
+//  --------------------------------
+if ( color_num ==0) {
+      color_back = winblue;
+      color_name = "winblue" ;
+}
+if ( color_num ==1) {
+      color_back = goon_green;
+      color_name ="light green";
+}
+if ( color_num ==2) {
+      color_back = hi7;
+      color_name = "winblue2";
+}
+if ( color_num ==3) {
+      color_back = vlo;
+      color_name = "violet";
+}
+if ( color_num ==4) {
+      color_back = white;
+      color_name = "white";
+}
+if ( color_num ==5) {
+      color_back = black;
+      color_name = "black";
+}
+/// -- 
   if ((((mouseX > SizeX*0.40) && (mouseX < SizeX*0.40+35)) && ((mouseY > 145) && (mouseY< 180)))) {
     image(loadImage("arrow_left_hover.png"),SizeX*0.40,145);
     IsHovering_settings = true;
@@ -301,7 +334,39 @@ if ( difficulty_num ==5) {
   image(loadImage("arrow_right.png"),SizeX*0.40+300-35,145);
   }
   fill(black);
+  //// --- color swap
+    if ((((mouseX > SizeX*0.40) && (mouseX < SizeX*0.40+35)) && ((mouseY > 245) && (mouseY< 280)))) {
+    image(loadImage("arrow_left_hover.png"),SizeX*0.40,245);
+    IsHovering_settings = true;
+    if (IsMousePressed && Buffer_already_click == false) {
+      Buffer_already_click = true;
+      if (color_num !=0) {
+         color_num = color_num - 1;
+  }
+  }
+  } else {
+    image(loadImage("arrow_left.png"),SizeX*0.40,245);
+  }
+  if ((((mouseX > SizeX*0.40+300-35) && (mouseX < SizeX*0.40+300)) && ((mouseY > 245) && (mouseY< 280)))) {
+  image(loadImage("arrow_right_hover.png"),SizeX*0.40+300-35,245);
+  IsHovering_settings = true;
+  if (IsMousePressed && Buffer_already_click == false) {
+  Buffer_already_click = true;
+  if (color_num !=5) {
+   color_num = color_num + 1;
+  }
+  }
+  } else {
+  image(loadImage("arrow_right.png"),SizeX*0.40+300-35,245);
+  }
+  fill(black);
+  // -- 
+  text(color_name,SizeX*0.40+105,275);
   text(difficulty_name,SizeX*0.40+105,175);
+  fill(white);
+  // nom option
+   text("Couleur de l'arrière Plan",SizeX*0.40,235);
+  text("Difficulté",SizeX*0.40+105,135);
    // exit font - reset to default
    textFont(loadFont("Consolas-14.vlw"));
    noStroke();
@@ -363,12 +428,15 @@ if ( difficulty_num ==5) {
  rect(mouseX+5,mouseY-7,2,1);
  fill(SubColor);
  // Pop Up score
- if (LeftTimeShow==second()&& Show){
-  Show = false;
- } else {
- fill(white);
+ fill(gray);
  rect(10,BaseLine-50,PopUpSizeX,PopUpSizeY);
  fill(black);
+ rect(10,BaseLine-50,PopUpSizeX,PopUpSizeY);
+ fill(gray);
+ rect(10,BaseLine-50,PopUpSizeX,PopUpSizeY);
+ fill(black);
+ rect(10,BaseLine-50,PopUpSizeX,PopUpSizeY);
+ fill(white);
  text("Score = ",15,BaseLine-35);
  text(Score,FontSize_Size*4.5,BaseLine-35);
  }
@@ -401,8 +469,7 @@ if ( difficulty_num ==5) {
  }
  }
  
- 
-}
+
 void mousePressed() {
  IsMousePressed = true; 
 }
